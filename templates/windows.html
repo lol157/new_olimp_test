@@ -1,32 +1,37 @@
 {% extends 'base.html'%}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/windows.css') }}">
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/windows.css') }}">
 {% endblock %}
 
 {% block content %}
-
-{% for date, dateData in data.items() %}
-    <h3>дата: {{ date }}</h3>
-    {% for floor in dateData['windows'][::-1] %}
+<div id="content">
+    <div id="windows">
+        {% for date, dateData in data.items() %}
+        <h3>дата: {{ date }}</h3>
+        {% for floor in dateData['windows'][::-1] %}
         {% for num, windows in floor.items() %}
-            {% for window in windows %}
-                {% if window %}
-                    <button style="background-color: yellow;">{{ num }}</button>
-                {% else %}
-                    <button style="background-color: grey;">{{ num }}</button>
-                {% endif %}
-            {% endfor %}
+        {% for window in windows %}
+        {% if window %}
+        <button style="background-color: yellow;">{{ num }}</button>
+        {% else %}
+        <button style="background-color: grey;">{{ num }}</button>
+        {% endif %}
         {% endfor %}
-        <br/>
-    {% endfor %}
-    <br/>
-    <label>количество комнат: {{dateData['roomCount']}}</label><br/>
-    <label>корректно по данным api: {{dateData['isCorrect']}}</label><br/>
-    <label>свет горит в комнатах: {{dateData['roomNumbers']}}</label><br/>
+        {% endfor %}
+        <br />
+        {% endfor %}
+        <br />
+        <label>количество комнат: {{dateData['roomCount']}}</label><br />
+        <label>корректно по данным api: {{dateData['isCorrect']}}</label><br />
+        <label>свет горит в комнатах: {{dateData['roomNumbers']}}</label><br />
 
-    <br/>
+        <br />
 
-{% endfor %}
 
-{% endblock %}
+        {% endfor %}
+
+        {% endblock %}
+    </div>
+</div>

@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 4vh;
+    width: 100%;
+    background-color: rgba(147, 255, 183);
+}
+
+#name {
+    position: absolute;
+    display: flex;
+    margin-left: 2vw;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+
+}
+
+#nav {
+    display: flex;
+    width: 20%;
+    justify-content: space-evenly;
+}

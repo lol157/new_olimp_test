@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
 {% endblock %}
 
 {% block content %}
-<h1>ввод</h1>
-<form method="post">
-    <label>количество комнат на этаже: </label>
-    <input type="number" name="roomPerFloor" required><br>
+<div class="content">
+    <h1>ввод</h1>
+    <div id="forms">
+        <form method="post">
+            <label class="label">количество комнат на этаже: </label>
+            <input type="number" name="roomPerFloor" required><br>
 
-    <label>количество окон для каждой комнаты на этаже (формата json в виде [3, 2, 1]): </label>
-    <input type="text" name="windowsPerRoom" required><br>
+            <label class="label">количество окон для каждой комнаты на этаже (формата 3 2 1): </label>
+            <input type="text" name="windowsPerRoom" required><br>
 
-    <label>информация о горящих окнах (формата json в виде {"floor_1": [true, false, true], ...}) </label>
-    <input type="text" name="lightInfo" required><br>
+            <label class="label">информация о горящих окнах (формата [[false, true], [true, false]]) </label>
+            <input id="input" type="text" name="lightInfo" required><br>
 
-    <input type="submit"><br>
-</form>
+            <input type="submit"><br>
+        </form>
+    </div>
+</div>
 {% endblock %}

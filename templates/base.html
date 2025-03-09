@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        {% block styles %}
-        {% endblock %}
-    </head>
 
-    <body>
-        <nav>
-            <a href="./dates">по датам</a>
-            <a href="./input">ввод</a>
-        </nav>
-        
-        {% block content %}
-        {% endblock %}
-    </body>
+<head>
+    <meta charset="utf-8">
+    {% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <h1 id="name">ебейший сайт2</h1>
+        <div id="container">
+            <nav id="nav">
+                <a href="./dates">по датам</a>
+                <a href="./input">ввод</a>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+</body>
+
 </html>
