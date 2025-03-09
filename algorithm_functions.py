@@ -11,7 +11,7 @@ def solve_algorithm(windows, windows_for_room) -> list[int]:
             room += 1
         last_index = 0
 
-    return flags
+    return lit_rooms
 
 
 if __name__ == '__main__':

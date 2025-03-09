@@ -1,54 +1,24 @@
 from flask import Flask, render_template, request
+from database_manager import DatabaseManager
+from algorithm_functions import solve_algorithm
+from load_database import reformat_windows
+import json
 
 app = Flask(__name__)
 
 
 @app.route("/dates", methods=["POST", "GET"])
 def dates():
-    if request.method == "POST":
-        date = request.form['date']
-        # data от бд
-        data = {
-            "21.01.2020": {
-                "windows": [
-                    {
-                        1: [True, False, True],
-                        2: [True, False]
-                    },
+    with DatabaseManager() as db:
+        data = db.get_data()
+        if request.method == "POST":
+            date = request.form['date']
+            res = {date: data[date]} if date != 'all_dates' else data
 
-                    {
-                        4: [True, False, True],
-                        5: [True, False]
-                    },
-                ],
+            return render_template("windows.html", data=res)
 
-                "roomCount": 4,
-                "isCorrect": True,
-                "roomNumbers": [1, 2, 3],
-            },
-
-            "21.01.2021": {
-                "windows": [
-                    {
-                        1: [True, False, True],
-                        2: [True, False]
-                    },
-
-                    {
-                        4: [True, False, True],
-                        5: [True, False]
-                    },
-                ],
-
-                "roomCount": 4,
-                "isCorrect": True,
-                "roomNumbers": [1, 2, 3],
-            },
-        }
-        return render_template("windows.html", data=data)
-
-    # dates от бд
-    dates = ["dddd", "dddddddd", "ddddddddddd"]
+        # dates от бд
+        dates = data.keys()
     return render_template("dates.html", dates=dates)
 
 
@@ -56,27 +26,17 @@ def dates():
 def input():
     if request.method == "POST":
         roomPerFloor = request.form['roomPerFloor']
-        windowsPerRoom = request.form['windowsPerRoom']
-        lightInfo = request.form['lightInfo']
+        windowsPerRoom = json.loads(request.form['windowsPerRoom'])
+        lightInfo = json.loads(request.form['lightInfo'])
+        algorithm_res = solve_algorithm(lightInfo, windowsPerRoom)
 
         # данные в алгоритм
         data = {
             "введенные данные": {
-                "windows": [
-                    {
-                        1: [True, False, True],
-                        2: [True, False]
-                    },
-
-                    {
-                        4: [True, False, True],
-                        5: [True, False]
-                    },
-                ],
-
-                "roomCount": 4,
+                "windows": reformat_windows(lightInfo, windowsPerRoom),
+                "roomCount": roomPerFloor,
                 "isCorrect": "введенные данные",
-                "roomNumbers": [1, 2, 3],
+                "roomNumbers": algorithm_res,
             }
         }
         return render_template("windows.html", data=data)

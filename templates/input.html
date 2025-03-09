@@ -10,10 +10,10 @@
     <label>количество комнат на этаже: </label>
     <input type="number" name="roomPerFloor" required><br>
 
-    <label>количество окон для каждой комнаты на этаже (формата 3 2 1): </label>
+    <label>количество окон для каждой комнаты на этаже (формата json в виде [3, 2, 1]): </label>
     <input type="text" name="windowsPerRoom" required><br>
 
-    <label>информация о горящих окнах (формата [[false, true], [true, false]]) </label>
+    <label>информация о горящих окнах (формата json в виде {"floor_1": [true, false, true], ...}) </label>
     <input type="text" name="lightInfo" required><br>
 
     <input type="submit"><br>
