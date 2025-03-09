@@ -1,7 +1,19 @@
+{% extends 'base.html' %}
+
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dates.css') }}">
 {% endblock %}
 
 {% block content %}
 <h1>по датам</h1>
+
+<div>
+    <form method="post">
+        <button type="submit" name="date" value="all_dates">по всем датам</button><br/>
+
+        {% for date in dates %}
+            <button type="submit" name="date" value="{{ date }}">{{ date }}</button><br/>
+        {% endfor %}
+    </form>
+</div>
 {% endblock %}
