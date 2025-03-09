@@ -1,6 +1,17 @@
-def solve_algorithm(windows, windows_for_room):
-    # Тут твой код
-    return [1, 2, 4, 6, 7,  8, 11, 12]  # Формат возвращаемых данных
+def solve_algorithm(windows, windows_for_room) -> list[int]:
+    last_index = 0
+    room = 1
+    lit_rooms = []
+
+    for _, flags in windows.items():
+        for i in windows_for_room:
+            if any(flags[last_index:last_index + i]):
+                lit_rooms += [room]
+            last_index += i
+            room += 1
+        last_index = 0
+
+    return flags
 
 
 if __name__ == '__main__':
@@ -40,4 +51,6 @@ if __name__ == '__main__':
     }
     windows_for_room = [3, 2, 1]
 
-    solve_algorithm(windows, windows_for_room)
+    result = solve_algorithm(windows, windows_for_room)
+
+    print(result)
